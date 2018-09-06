@@ -252,6 +252,10 @@ namespace Subtitles_Tools
             {
                 if (!string.IsNullOrEmpty(SrtFilePath))
                 {
+                     if(vlcControl.IsPlaying)
+                     {
+                         vlcControl.Pause();
+                     }
                     var SelectedSubtitles = SubTitleItems[SubTitlesGrv.SelectedRows[0].Index];
                     var position = vlcControl.GetCurrentMedia().Duration.Ticks * vlcControl.Position;
                     var currentTime = new TimeSpan((long)position);

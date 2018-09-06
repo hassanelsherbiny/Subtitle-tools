@@ -39,7 +39,7 @@ namespace Subtitles_Tools
             Start = Start.Add(ts);
             End = End.Add(ts);
         }
-         
+
     }
     public static class SubTitleItemExtensions
     {
@@ -49,6 +49,9 @@ namespace Subtitles_Tools
             int Counter = 1;
             foreach (var item in SubTitleItems)
             {
+
+                item.Text = item.Text.Trim();
+              
                 NewSubTitleFile += Counter++ + Environment.NewLine + item.ToSubtitleString();
             }
             System.IO.File.WriteAllText(FilePath, NewSubTitleFile, Encoding.Default);

@@ -31,6 +31,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubtitleSync));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItem_Sync = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItem_Save = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItem_SaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItem_UnloadBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItem_ManualShift = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItem_FileCapture = new System.Windows.Forms.ToolStripMenuItem();
+            this.MnueItem_help = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.BtnPause = new System.Windows.Forms.Button();
             this.BtnStop = new System.Windows.Forms.Button();
@@ -45,16 +53,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
             this.TxtSearch = new System.Windows.Forms.TextBox();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItem_Sync = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItem_UnloadBtn = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItem_ManualShift = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItem_FileCapture = new System.Windows.Forms.ToolStripMenuItem();
-            this.MnueItem_help = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItem_Save = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItem_SaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SubTitlesGrv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -95,6 +95,90 @@
             this.menuStrip1.Size = new System.Drawing.Size(936, 87);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.Image = global::Subtitles_Tools.Properties.Resources.Open1;
+            this.fileToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(76, 83);
+            this.fileToolStripMenuItem.Text = "Load";
+            this.fileToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.fileToolStripMenuItem.ToolTipText = "Select a fIle To Sync its Subtitles";
+            this.fileToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_Load_Click);
+            // 
+            // MenuItem_Sync
+            // 
+            this.MenuItem_Sync.Image = global::Subtitles_Tools.Properties.Resources.Sync;
+            this.MenuItem_Sync.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MenuItem_Sync.Name = "MenuItem_Sync";
+            this.MenuItem_Sync.Size = new System.Drawing.Size(76, 83);
+            this.MenuItem_Sync.Text = "Sync";
+            this.MenuItem_Sync.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.MenuItem_Sync.ToolTipText = "Select a subtitle And Sync To Current Time Of Player";
+            this.MenuItem_Sync.Click += new System.EventHandler(this.MenuItem_Sync_Click);
+            // 
+            // MenuItem_Save
+            // 
+            this.MenuItem_Save.Image = global::Subtitles_Tools.Properties.Resources.Save;
+            this.MenuItem_Save.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MenuItem_Save.Name = "MenuItem_Save";
+            this.MenuItem_Save.Size = new System.Drawing.Size(91, 83);
+            this.MenuItem_Save.Text = "Save Subtitles";
+            this.MenuItem_Save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.MenuItem_Save.ToolTipText = "Save The Current Subtitles With It\'s Modifications To Current Subtitle File";
+            this.MenuItem_Save.Click += new System.EventHandler(this.MenuItem_Save_Click);
+            // 
+            // MenuItem_SaveAs
+            // 
+            this.MenuItem_SaveAs.Image = global::Subtitles_Tools.Properties.Resources.SaveAs;
+            this.MenuItem_SaveAs.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MenuItem_SaveAs.Name = "MenuItem_SaveAs";
+            this.MenuItem_SaveAs.Size = new System.Drawing.Size(107, 83);
+            this.MenuItem_SaveAs.Text = "Save Subtitles As";
+            this.MenuItem_SaveAs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.MenuItem_SaveAs.ToolTipText = "Save The Current Subtitles With It\'s Modifications To a File";
+            this.MenuItem_SaveAs.Click += new System.EventHandler(this.MenuItem_SaveAs_Click);
+            // 
+            // MenuItem_UnloadBtn
+            // 
+            this.MenuItem_UnloadBtn.Image = global::Subtitles_Tools.Properties.Resources.Unload;
+            this.MenuItem_UnloadBtn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MenuItem_UnloadBtn.Name = "MenuItem_UnloadBtn";
+            this.MenuItem_UnloadBtn.Size = new System.Drawing.Size(76, 83);
+            this.MenuItem_UnloadBtn.Text = "Unload";
+            this.MenuItem_UnloadBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.MenuItem_UnloadBtn.Click += new System.EventHandler(this.MenuItem_UnloadBtn_Click);
+            // 
+            // MenuItem_ManualShift
+            // 
+            this.MenuItem_ManualShift.Image = global::Subtitles_Tools.Properties.Resources.ManualShift;
+            this.MenuItem_ManualShift.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MenuItem_ManualShift.Name = "MenuItem_ManualShift";
+            this.MenuItem_ManualShift.Size = new System.Drawing.Size(86, 83);
+            this.MenuItem_ManualShift.Text = "Manual Shift";
+            this.MenuItem_ManualShift.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.MenuItem_ManualShift.Click += new System.EventHandler(this.MenuItem_ManualShift_Click);
+            // 
+            // MenuItem_FileCapture
+            // 
+            this.MenuItem_FileCapture.Image = global::Subtitles_Tools.Properties.Resources.FileCapture;
+            this.MenuItem_FileCapture.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MenuItem_FileCapture.Name = "MenuItem_FileCapture";
+            this.MenuItem_FileCapture.Size = new System.Drawing.Size(82, 83);
+            this.MenuItem_FileCapture.Text = "File Capture";
+            this.MenuItem_FileCapture.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.MenuItem_FileCapture.Click += new System.EventHandler(this.MenuItem_FileCapture_Click);
+            // 
+            // MnueItem_help
+            // 
+            this.MnueItem_help.Image = global::Subtitles_Tools.Properties.Resources.Help_icon_72a7cf_svg;
+            this.MnueItem_help.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MnueItem_help.Name = "MnueItem_help";
+            this.MnueItem_help.Size = new System.Drawing.Size(76, 83);
+            this.MnueItem_help.Text = "Help";
+            this.MnueItem_help.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.MnueItem_help.Click += new System.EventHandler(this.MnueItem_help_Click);
             // 
             // BtnPause
             // 
@@ -215,7 +299,7 @@
             this.trackBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trackBar.Location = new System.Drawing.Point(0, 0);
             this.trackBar.Name = "trackBar";
-            this.trackBar.Size = new System.Drawing.Size(458, 45);
+            this.trackBar.Size = new System.Drawing.Size(458, 38);
             this.trackBar.TabIndex = 4;
             this.trackBar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
@@ -271,16 +355,6 @@
             this.splitContainer5.SplitterDistance = 25;
             this.splitContainer5.TabIndex = 0;
             // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(312, 25);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Search : ";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // TxtSearch
             // 
             this.TxtSearch.Dock = System.Windows.Forms.DockStyle.Top;
@@ -290,89 +364,15 @@
             this.TxtSearch.TabIndex = 3;
             this.TxtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSearch_KeyDown);
             // 
-            // fileToolStripMenuItem
+            // label1
             // 
-            this.fileToolStripMenuItem.Image = global::Subtitles_Tools.Properties.Resources.Open1;
-            this.fileToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(76, 83);
-            this.fileToolStripMenuItem.Text = "Load";
-            this.fileToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.fileToolStripMenuItem.ToolTipText = "Select a fIle To Sync its Subtitles";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_Load_Click);
-            // 
-            // MenuItem_Sync
-            // 
-            this.MenuItem_Sync.Image = global::Subtitles_Tools.Properties.Resources.Sync;
-            this.MenuItem_Sync.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MenuItem_Sync.Name = "MenuItem_Sync";
-            this.MenuItem_Sync.Size = new System.Drawing.Size(76, 83);
-            this.MenuItem_Sync.Text = "Sync";
-            this.MenuItem_Sync.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.MenuItem_Sync.ToolTipText = "Select a subtitle And Sync To Current Time Of Player";
-            this.MenuItem_Sync.Click += new System.EventHandler(this.MenuItem_Sync_Click);
-            // 
-            // MenuItem_UnloadBtn
-            // 
-            this.MenuItem_UnloadBtn.Image = global::Subtitles_Tools.Properties.Resources.Unload;
-            this.MenuItem_UnloadBtn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MenuItem_UnloadBtn.Name = "MenuItem_UnloadBtn";
-            this.MenuItem_UnloadBtn.Size = new System.Drawing.Size(76, 83);
-            this.MenuItem_UnloadBtn.Text = "Unload";
-            this.MenuItem_UnloadBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.MenuItem_UnloadBtn.Click += new System.EventHandler(this.MenuItem_UnloadBtn_Click);
-            // 
-            // MenuItem_ManualShift
-            // 
-            this.MenuItem_ManualShift.Image = global::Subtitles_Tools.Properties.Resources.ManualShift;
-            this.MenuItem_ManualShift.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MenuItem_ManualShift.Name = "MenuItem_ManualShift";
-            this.MenuItem_ManualShift.Size = new System.Drawing.Size(86, 83);
-            this.MenuItem_ManualShift.Text = "Manual Shift";
-            this.MenuItem_ManualShift.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.MenuItem_ManualShift.Click += new System.EventHandler(this.MenuItem_ManualShift_Click);
-            // 
-            // MenuItem_FileCapture
-            // 
-            this.MenuItem_FileCapture.Image = global::Subtitles_Tools.Properties.Resources.FileCapture;
-            this.MenuItem_FileCapture.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MenuItem_FileCapture.Name = "MenuItem_FileCapture";
-            this.MenuItem_FileCapture.Size = new System.Drawing.Size(82, 83);
-            this.MenuItem_FileCapture.Text = "File Capture";
-            this.MenuItem_FileCapture.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.MenuItem_FileCapture.Click += new System.EventHandler(this.MenuItem_FileCapture_Click);
-            // 
-            // MnueItem_help
-            // 
-            this.MnueItem_help.Image = global::Subtitles_Tools.Properties.Resources.Help_icon_72a7cf_svg;
-            this.MnueItem_help.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MnueItem_help.Name = "MnueItem_help";
-            this.MnueItem_help.Size = new System.Drawing.Size(76, 83);
-            this.MnueItem_help.Text = "Help";
-            this.MnueItem_help.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.MnueItem_help.Click += new System.EventHandler(this.MnueItem_help_Click);
-            // 
-            // MenuItem_Save
-            // 
-            this.MenuItem_Save.Image = global::Subtitles_Tools.Properties.Resources.Save;
-            this.MenuItem_Save.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MenuItem_Save.Name = "MenuItem_Save";
-            this.MenuItem_Save.Size = new System.Drawing.Size(91, 83);
-            this.MenuItem_Save.Text = "Save Subtitles";
-            this.MenuItem_Save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.MenuItem_Save.ToolTipText = "Save The Current Subtitles With It\'s Modifications To Current Subtitle File";
-            this.MenuItem_Save.Click += new System.EventHandler(this.MenuItem_Save_Click);
-            // 
-            // MenuItem_SaveAs
-            // 
-            this.MenuItem_SaveAs.Image = global::Subtitles_Tools.Properties.Resources.SaveAs;
-            this.MenuItem_SaveAs.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MenuItem_SaveAs.Name = "MenuItem_SaveAs";
-            this.MenuItem_SaveAs.Size = new System.Drawing.Size(107, 83);
-            this.MenuItem_SaveAs.Text = "Save Subtitles As";
-            this.MenuItem_SaveAs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.MenuItem_SaveAs.ToolTipText = "Save The Current Subtitles With It\'s Modifications To a File";
-            this.MenuItem_SaveAs.Click += new System.EventHandler(this.MenuItem_SaveAs_Click);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(312, 25);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Search : ";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // SubtitleSync
             // 
