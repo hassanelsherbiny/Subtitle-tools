@@ -24,12 +24,12 @@ namespace Subtitles_Tools
 
         private void BtnFaceBook_Click(object sender, EventArgs e)
         {
-            Process.Start(@"");
+            Process.Start(@"https://facebook.com/bitsdevelopments1/");
         }
 
         private void BtnWebsite_Click(object sender, EventArgs e)
         {
-            Process.Start(@"");
+            Process.Start(@"https://bits-developments.com");
         }
     }
 }

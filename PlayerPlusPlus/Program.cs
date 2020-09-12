@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Subtitles_Tools
+namespace PlayerPlusPlus
 {
     static class Program
     {
@@ -15,23 +15,13 @@ namespace Subtitles_Tools
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
-            //if(args!=null&&args.Any())
-            //{
-            //    Application.Run(new Player(args[0]));
-            //}
-            //else
-            //{
-            //    Application.Run(new Player());
-            //}
             if (args != null && args.Any())
             {
-                Application.Run(new SubtitleSync(args[0]));
+                Application.Run(new Player(args[0]));
             }
             else
             {
-                Application.Run(new SubtitleSync());
-                  // Application.Run(new Player());
+                Application.Run(new Player());
             }
         }
     }

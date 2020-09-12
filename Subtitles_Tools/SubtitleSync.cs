@@ -9,136 +9,50 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Vlc.DotNet.Core;
+using DateTimeX;
+using PlayerPlusPlus.Core;
 
 namespace Subtitles_Tools
 {
     public partial class SubtitleSync : Form
     {
-        Vlc.DotNet.Forms.VlcControl vlcControl = new Vlc.DotNet.Forms.VlcControl();
         string VideoFilePath;
         string SrtFilePath;
-        string AllowedVideoTypes = "Video Files|*.mkv;*.avi;*.mp4|All Files|*.*";
+
         List<SubTitleItem> SubTitleItems { get; set; }
-        bool OnEdit = false;
         public SubtitleSync()
         {
             InitializeComponent();
-            InitPlayer();
             CheckForIllegalCrossThreadCalls = false;
-            ApplyDragoDrop(Controls);
-        }
 
-        void ApplyDragoDrop(Control.ControlCollection c)
-        {
-            foreach (Control control in c)
+            UCPlayer1.EditSubtitles += (ts, ex) =>
             {
-                control.DragDrop += FileDragDrop;
-                control.DragEnter += FileDragEnter;
-                control.AllowDrop = true;
-                ApplyDragoDrop(control.Controls);
+                var currentime = (TimeSpan?)ts;
+                SelectClosestSubTitle(currentime);
+            };
+            ApplyDragoDrop(this.Controls);
+            UCPlayer1.NewFilePlayed += (file) => { LoadVideo(file, true); };
+            //LoadVideo(@"F:\Movies\Series\Dark\S1\Dark S01E04 .mkv");
+        }
+        public SubtitleSync(string FilePath) : this()
+        {
+            LoadVideo(FilePath);
+        }
+        void SelectClosestSubTitle(TimeSpan? time)
+        {
+            var closesttime = time.ClosestTime(SubTitleItems.Select(x => x.Start as TimeSpan?).ToArray());
+            var ClosestSubtitle = SubTitleItems.FirstOrDefault(x => x.Start == closesttime);
+            var index = SubTitleItems.IndexOf(ClosestSubtitle);
+            SubTitlesGrv.ClearSelection();
+            if (index != -1)
+            {
+                SubTitlesGrv.Rows[index].Selected = true;
+                SubTitlesGrv.FirstDisplayedScrollingRowIndex = SubTitlesGrv.SelectedRows[0].Index;
+                SubTitlesGrv.Refresh();
             }
         }
-        #region   Player Init And Events
-        void InitPlayer()
-        {
-            this.vlcControl = new Vlc.DotNet.Forms.VlcControl();
-            ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // vlcControl
-            // 
-            this.vlcControl.BackColor = System.Drawing.Color.Black;
-            this.vlcControl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.vlcControl.Location = new System.Drawing.Point(0, 0);
-            this.vlcControl.Name = "vlcControl";
-            this.vlcControl.Size = new System.Drawing.Size(944, 501);
-            this.vlcControl.Spu = -1;
-            this.vlcControl.TabIndex = 0;
-            this.vlcControl.Text = "vlcControl1";
-            this.vlcControl.VlcLibDirectory = null;
-            this.vlcControl.VlcMediaplayerOptions = null;
-            this.vlcControl.VlcLibDirectoryNeeded += new System.EventHandler<Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs>(this.vlcControl_VlcLibDirectoryNeeded);
-            this.vlcControl.LengthChanged += OnVlcMediaLengthChanged;
-            this.vlcControl.PositionChanged += OnVlcPositionChanged;
-            this.vlcControl.Click += BtnPause_Click;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 
-            splitContainer1.Panel1.Controls.Add(this.vlcControl);
-            ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).EndInit();
-            this.ResumeLayout(false);
 
-        }
-        private void vlcControl_VlcLibDirectoryNeeded(object sender, Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs e)
-        {
-            var currentAssembly = Assembly.GetEntryAssembly();
-            var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
-            // Default installation path of VideoLAN.LibVLC.Windows
-            e.VlcLibDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
-        }
-
-        private void BtnPlay_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BtnPause_Click(object sender, EventArgs e)
-        {
-            vlcControl.Pause();
-        }
-        private void OnVlcMediaLengthChanged(object sender, VlcMediaPlayerLengthChangedEventArgs e)
-        {
-            var totalTime = new TimeSpan((long)e.NewLength);
-            LblTotalTime.Text = string.Format("{0:00}:{1:00}:{2:00},{3:000}",
-                        totalTime.Hours,
-                        totalTime.Minutes,
-                        totalTime.Seconds,
-                        totalTime.Milliseconds);
-            trackBar.Maximum = (int)(vlcControl.Length);
-        }
-        private void OnVlcPositionChanged(object sender, VlcMediaPlayerPositionChangedEventArgs e)
-        {
-            var position = vlcControl.GetCurrentMedia().Duration.Ticks * e.NewPosition;
-            var currentTime = new TimeSpan((long)position);
-
-            LblCurrentTime.Text = string.Format("{0:00}:{1:00}:{2:00},{3:000}",
-            currentTime.Hours,
-            currentTime.Minutes,
-            currentTime.Seconds,
-            currentTime.Milliseconds);
-            trackBar.Value = (int)currentTime.TotalMilliseconds;
-        }
-
-        private void BtnStop_Click(object sender, EventArgs e)
-        {
-            vlcControl.Stop();
-        }
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            var ToBeChanged = 5000f / vlcControl.Length;
-            if (keyData == Keys.Right)
-            {
-                vlcControl.Position += ToBeChanged;
-                return true;
-            }
-            else if (keyData == Keys.Left)
-            {
-                vlcControl.Position -= ToBeChanged;
-                return true;
-            }
-            else if (keyData == Keys.Space && !OnEdit)
-            {
-                vlcControl.Pause();
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-        private void trackBar_Scroll(object sender, EventArgs e)
-        {
-            vlcControl.Position = (float)((decimal)trackBar.Value / vlcControl.Length);
-        }
-        #endregion
 
         #region Methods
         bool IsSubtitleCounter(string str)
@@ -176,9 +90,10 @@ namespace Subtitles_Tools
             return match.Success;
 
         }
-        void LoadVideo(string VideoPath)
+        public void LoadVideo(string VideoPath, bool FromEvent = false)
         {
-            LblFilePath.Text = VideoFilePath = VideoPath;
+            Text = VideoFilePath = VideoPath;
+
             SrtFilePath = Path.Combine(Path.GetDirectoryName(VideoPath), Path.GetFileNameWithoutExtension(VideoPath) + ".srt");
             //Fill Grid
             if (File.Exists(SrtFilePath))
@@ -213,22 +128,51 @@ namespace Subtitles_Tools
                 }
 
                 SubTitlesGrv.DataSource = SubTitleItems;
-                vlcControl.Play(new Uri(VideoFilePath));
+                if (!FromEvent)
+                    UCPlayer1.Play(VideoFilePath);
             }
             else
             {
-                LblFilePath.Text = "";
+                UCPlayer1.FilePath = "";
                 var result = MessageBox.Show(this, "Srt File Not Found, Want To Select It?", "ERROR", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
                     OpenFileDialog ofd = new OpenFileDialog();
                     ofd.Filter = "Srt File|*.srt|All Files|*.*";
                     if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    { 
+                    {
                         File.Copy(ofd.FileName, SrtFilePath);
-                        LoadVideo(VideoPath);
+                        if (!FromEvent)
+                            LoadVideo(VideoFilePath);
                     }
                 }
+            }
+        }
+        void ApplyDragoDrop(Control.ControlCollection c)
+        {
+            foreach (Control control in c)
+            {
+                control.DragDrop += FileDragDrop;
+                control.DragEnter += FileDragEnter;
+                control.AllowDrop = true;
+                ApplyDragoDrop(control.Controls);
+            }
+        }
+        private void FileDragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+        private void FileDragDrop(object sender, DragEventArgs e)
+        {
+            var file = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+            var filetype = Path.GetExtension(file);
+            if (Settings.AllowedVideoTypes.Contains(filetype))
+            {
+                LoadVideo(file);
+            }
+            else
+            {
+                MessageBox.Show(this, "Please Add Only Video Files", "File Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
@@ -236,10 +180,9 @@ namespace Subtitles_Tools
         #region Menu Buttons
         private void MenuItem_Load_Click(object sender, EventArgs e)
         {
-            if (vlcControl.State == Vlc.DotNet.Core.Interops.Signatures.MediaStates.Playing)
-                vlcControl.Stop();
+            UCPlayer1.Stop();
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = AllowedVideoTypes;
+            ofd.Filter = Settings.AllowedVideoTypes;
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 LoadVideo(ofd.FileName);
@@ -252,21 +195,19 @@ namespace Subtitles_Tools
             {
                 if (!string.IsNullOrEmpty(SrtFilePath))
                 {
-                     if(vlcControl.IsPlaying)
-                     {
-                         vlcControl.Pause();
-                     }
+                    UCPlayer1.Pause();
                     var SelectedSubtitles = SubTitleItems[SubTitlesGrv.SelectedRows[0].Index];
-                    var position = vlcControl.GetCurrentMedia().Duration.Ticks * vlcControl.Position;
-                    var currentTime = new TimeSpan((long)position);
+
+                    var currentTime = new TimeSpan((long)UCPlayer1.Position);
                     var Shift = currentTime - SelectedSubtitles.Start;
                     SubTitleItems.ShiftAll(Shift);
                     SubTitleItems.WriteToFile(SrtFilePath);
                     //Reload Video And Seek To Current Position
-                    var currentPos = vlcControl.Position;
-                    vlcControl.Stop();
-                    vlcControl.Play(new Uri(VideoFilePath));
-                    vlcControl.Position = currentPos; vlcControl.Pause();
+                    var currentPos = UCPlayer1.Position;
+                    UCPlayer1.Stop();
+                    UCPlayer1.Play(VideoFilePath);
+                    UCPlayer1.Position = currentPos;
+                    UCPlayer1.Pause();
 
                     MessageBox.Show("Sync Done", "DONE", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -309,34 +250,15 @@ namespace Subtitles_Tools
 
         private void MenuItem_UnloadBtn_Click(object sender, EventArgs e)
         {
-            vlcControl.Stop();
-            VideoFilePath = SrtFilePath = LblFilePath.Text = null;
-            LblCurrentTime.Text = LblTotalTime.Text = "00:00:00,000";
+            UCPlayer1.Stop();
+            VideoFilePath = SrtFilePath = UCPlayer1.FilePath = null;
+            //UCPlayer1.CurrentTime = UCPlayer1.TotalTime = "00:00:00,000";
             SubTitlesGrv.DataSource = null;
         }
 
         #endregion
 
-        #region Drag Drop
-        private void FileDragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
-        }
 
-        private void FileDragDrop(object sender, DragEventArgs e)
-        {
-            var file = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-            var filetype = Path.GetExtension(file);
-            if (AllowedVideoTypes.Contains(filetype))
-            {
-                LoadVideo(file);
-            }
-            else
-            {
-                MessageBox.Show(this, "Please Add Only Video Files", "File Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        #endregion
 
         int SearchResultIndex = -1;
         string LastSearchedText = "";
@@ -369,7 +291,7 @@ namespace Subtitles_Tools
         {
             //   SubTitlesGrv
             SubTitlesGrv.BeginEdit(true);
-            OnEdit = true;
+            UCPlayer1.OnEdit = true;
         }
 
         private void MenuItem_SaveAs_Click(object sender, EventArgs e)
@@ -391,8 +313,9 @@ namespace Subtitles_Tools
 
         private void SubTitlesGrv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            OnEdit = false;
+            UCPlayer1.OnEdit = false;
         }
+
 
 
         #region Subtitles Events
@@ -401,6 +324,47 @@ namespace Subtitles_Tools
 
         #endregion
 
+        private void SyncAllNext_Click(object sender, EventArgs e)
+        {
+
+            if (!string.IsNullOrEmpty(VideoFilePath))
+            {
+                if (!string.IsNullOrEmpty(SrtFilePath))
+                {
+
+                    UCPlayer1.Pause();
+                    var currentIndex = SubTitlesGrv.SelectedRows[0].Index;
+                    var SelectedSubtitles = SubTitleItems[currentIndex];
+                    var position = UCPlayer1.Position;
+                    var currentTime = new TimeSpan((long)position);
+                    var Shift = currentTime - SelectedSubtitles.Start;
+                    SubTitleItems.ShiftAllAfterIndex(Shift, currentIndex);
+                    SubTitleItems.WriteToFile(SrtFilePath);
+                    //Reload Video And Seek To Current Position
+                    var currentPos = UCPlayer1.Position;
+                    UCPlayer1.Stop();
+                    UCPlayer1.Play(VideoFilePath);
+                    UCPlayer1.Position = currentPos;
+                    UCPlayer1.Pause();
+
+                    MessageBox.Show("Sync Done", "DONE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show(this, "Srt File Not Found", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+                MessageBox.Show("Please Load File First", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+        private void BtnFullScreen_Click(object sender, EventArgs e)
+        {
+            var S = Screen.FromHandle(Handle); //to find the screen the control in on
+            var fi = S.GetType().GetField("hmonitor", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            IntPtr screenhandle = (IntPtr)fi.GetValue(S); //to get the screen handle
+            //FullScreen fs = new FullScreen(vlcControl, splitContainer2, splitContainer1);
+            //fs.ShowDialog();
+        }
 
     }
 }

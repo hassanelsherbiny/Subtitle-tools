@@ -42,44 +42,54 @@ namespace Subtitles_Tools
                 string VideoPath = video.Trim();
                 if (AllowedExt.Contains(Path.GetExtension(VideoPath).ToLower()))
                 {
-                    var data = ExtracSeasonAndEposide(Path.GetFileNameWithoutExtension(VideoPath).ToUpper());
+                    //var data = ExtracSeasonAndEposide(Path.GetFileNameWithoutExtension(VideoPath).ToUpper(), @"S(?<season>\d{1,2})E(?<episode>\d{1,2})");
+                    var data = (ExtracSeasonAndEposide(Path.GetFileNameWithoutExtension(VideoPath).ToUpper(), @"S(?<season>\d{1,2}) E(?<episode>\d{1,2})"));
+                    var q = data.ToList();
+                     
                     if (data.Any())
                     {
-                        string eposide = string.Format("S{0}E{1}", data.FirstOrDefault().Key, data.FirstOrDefault().Value);
-                        var srtFiles = Directory.GetFiles(FileCapture_TxtPath.Text, "*.*", SearchOption.AllDirectories)
-                       .Select(f => new FileInfo(f)).Where(x => AllowedSRTExt.Contains(Path.GetExtension(x.FullName).ToLower()));
-                        foreach (var srtfile in srtFiles)
-                        {
-                            if (srtfile.Name.Trim().ToUpper().Contains(eposide))
-                            {
-                                //make backup
-                                string backup = FileCapture_TxtPath.Text + "/Backup";
-                                if (!Directory.Exists(backup))
-                                {
-                                    Directory.CreateDirectory(backup);
-                                }
-                                string SrtFileBackup = Path.Combine(backup, srtfile.Name);
-                                if (!File.Exists(SrtFileBackup))
-                                {
-                                    File.Copy(srtfile.FullName, SrtFileBackup);
-                                }
-                                //rename
-                                var NewSrtFile = Path.Combine(FileCapture_TxtPath.Text, Path.GetFileNameWithoutExtension(VideoPath) + ".srt");
-                                if (!File.Exists(NewSrtFile))
-                                {
-                                    File.Move(srtfile.FullName, NewSrtFile);
-                                }
-                            }
-                        }
+                        CaptureWithPattern(VideoPath, data, "S{0}E{1}", AllowedExt, AllowedSRTExt);
+                        CaptureWithPattern(VideoPath, data, "S{0} E{1}", AllowedExt, AllowedSRTExt);
+                        CaptureWithPattern(VideoPath, data, "E{1}", AllowedExt, AllowedSRTExt);
+                        CaptureWithPattern(VideoPath, data, "{1}", AllowedExt, AllowedSRTExt); 
                     }
                 }
             }
             MessageBox.Show("DONE", "All Files Renamed", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        Dictionary<string, string> ExtracSeasonAndEposide(string filename)
+        void CaptureWithPattern(string VideoPath, Dictionary<string, string> data, string Pattern, string[] AllowedExt, string[] AllowedSRTExt)
+        {
+            string eposide = string.Format(Pattern, data.FirstOrDefault().Key, data.FirstOrDefault().Value);
+            var srtFiles = Directory.GetFiles(FileCapture_TxtPath.Text, "*.*", SearchOption.AllDirectories)
+           .Select(f => new FileInfo(f)).Where(x => AllowedSRTExt.Contains(Path.GetExtension(x.FullName).ToLower()));
+            foreach (var srtfile in srtFiles)
+            {
+                if (srtfile.Name.Trim().ToUpper().Contains(eposide))
+                {
+                    //make backup
+                    string backup = FileCapture_TxtPath.Text + "/Backup";
+                    if (!Directory.Exists(backup))
+                    {
+                        Directory.CreateDirectory(backup);
+                    }
+                    string SrtFileBackup = Path.Combine(backup, srtfile.Name);
+                    if (!File.Exists(SrtFileBackup))
+                    {
+                        File.Copy(srtfile.FullName, SrtFileBackup);
+                    }
+                    //rename
+                    var NewSrtFile = Path.Combine(FileCapture_TxtPath.Text, Path.GetFileNameWithoutExtension(VideoPath) + ".srt");
+                    if (!File.Exists(NewSrtFile))
+                    {
+                        File.Move(srtfile.FullName, NewSrtFile);
+                    }
+                }
+            }
+        }
+        Dictionary<string, string> ExtracSeasonAndEposide(string filename, string Pattern)
         {
             var result = new Dictionary<string, string>();
-            Regex regex = new Regex(@"S(?<season>\d{1,2})E(?<episode>\d{1,2})");
+            Regex regex = new Regex(Pattern);
 
             Match match = regex.Match(filename);
             if (match.Success)

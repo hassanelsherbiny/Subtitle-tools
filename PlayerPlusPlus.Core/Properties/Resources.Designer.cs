@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Subtitles_Tools.Properties {
+namespace PlayerPlusPlus.Core.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Subtitles_Tools.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Subtitles_Tools.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Subtitles_Tools.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PlayerPlusPlus.Core.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Subtitles_Tools.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,9 +63,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Facebook {
+        public static System.Drawing.Bitmap doublefirst_16x16 {
             get {
-                object obj = ResourceManager.GetObject("Facebook", resourceCulture);
+                object obj = ResourceManager.GetObject("doublefirst_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FileCapture {
+        public static System.Drawing.Bitmap doublelast_16x16 {
             get {
-                object obj = ResourceManager.GetObject("FileCapture", resourceCulture);
+                object obj = ResourceManager.GetObject("doublelast_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Github {
+        public static System.Drawing.Bitmap doublenext_16x16 {
             get {
-                object obj = ResourceManager.GetObject("Github", resourceCulture);
+                object obj = ResourceManager.GetObject("doublenext_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Help_icon {
+        public static System.Drawing.Bitmap doubleprev_16x16 {
             get {
-                object obj = ResourceManager.GetObject("Help_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("doubleprev_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Logo1_ {
+        public static System.Drawing.Bitmap editname_16x16 {
             get {
-                object obj = ResourceManager.GetObject("Logo1_", resourceCulture);
+                object obj = ResourceManager.GetObject("editname_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ManualShift {
+        public static System.Drawing.Bitmap first_16x16 {
             get {
-                object obj = ResourceManager.GetObject("ManualShift", resourceCulture);
+                object obj = ResourceManager.GetObject("first_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Open {
+        public static System.Drawing.Bitmap group2_16x16 {
             get {
-                object obj = ResourceManager.GetObject("Open", resourceCulture);
+                object obj = ResourceManager.GetObject("group2_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Open1 {
+        public static System.Drawing.Bitmap last_16x16 {
             get {
-                object obj = ResourceManager.GetObject("Open1", resourceCulture);
+                object obj = ResourceManager.GetObject("last_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Save {
+        public static System.Drawing.Bitmap media_16x16 {
             get {
-                object obj = ResourceManager.GetObject("Save", resourceCulture);
+                object obj = ResourceManager.GetObject("media_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +153,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SaveAs {
+        public static System.Drawing.Bitmap next_16x16 {
             get {
-                object obj = ResourceManager.GetObject("SaveAs", resourceCulture);
+                object obj = ResourceManager.GetObject("next_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +163,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Sync {
+        public static System.Drawing.Bitmap pause_16x16 {
             get {
-                object obj = ResourceManager.GetObject("Sync", resourceCulture);
+                object obj = ResourceManager.GetObject("pause_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +173,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Unload {
+        public static System.Drawing.Bitmap play_16x16 {
             get {
-                object obj = ResourceManager.GetObject("Unload", resourceCulture);
+                object obj = ResourceManager.GetObject("play_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +183,9 @@ namespace Subtitles_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Website {
+        public static System.Drawing.Bitmap stop_16x16 {
             get {
-                object obj = ResourceManager.GetObject("Website", resourceCulture);
+                object obj = ResourceManager.GetObject("stop_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

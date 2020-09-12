@@ -34,9 +34,22 @@
   <PropertyGroup>
     <ApplicationIcon>subtitletools.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DateTimeX">
+      <HintPath>..\DateTimeX.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,15 +58,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Vlc.DotNet.Core">
-      <HintPath>C:\Users\Hassan Elsherbiny\Downloads\Vlc.DotNet-develop\Vlc.DotNet-develop\src\Vlc.DotNet.Forms\bin\Debug\net40\Vlc.DotNet.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Vlc.DotNet.Core.Interops">
-      <HintPath>C:\Users\Hassan Elsherbiny\Downloads\Vlc.DotNet-develop\Vlc.DotNet-develop\src\Vlc.DotNet.Forms\bin\Debug\net40\Vlc.DotNet.Core.Interops.dll</HintPath>
-    </Reference>
-    <Reference Include="Vlc.DotNet.Forms">
-      <HintPath>C:\Users\Hassan Elsherbiny\Downloads\Vlc.DotNet-develop\Vlc.DotNet-develop\src\Vlc.DotNet.Forms\bin\Debug\net40\Vlc.DotNet.Forms.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileCapture.cs">
@@ -76,7 +80,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubTitleItem.cs" />
     <Compile Include="SubtitleSync.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +95,7 @@
     <EmbeddedResource Include="ManualShift.resx">
       <DependentUpon>ManualShift.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -129,7 +133,14 @@
     <None Include="Resources\Unload.png" />
     <None Include="Resources\Save.png" />
     <None Include="Resources\SaveAs.png" />
+    <None Include="Resources\Help_icon.png" />
     <Content Include="subtitletools.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlayerPlusPlus.Core\PlayerPlusPlus.Core.csproj">
+      <Project>{406A9075-52DD-4BD0-BA98-A725D5EE4692}</Project>
+      <Name>PlayerPlusPlus.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
